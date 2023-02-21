@@ -1,0 +1,17 @@
+{{-- Script Tag facebook Share with freind & Follow Like. --}}
+
+
+<div class="innerlinkFirst">
+    <img src="{{ asset('frontend') }}/assets/images/line.png">
+    <a  href="https://www.facebook.com/sharer/sharer.php?kid_directed_site=0&sdk=joey&u=https://www.drugotc.geeksroot.net%2F&display=popup&ref=plugin&src=share_button"
+     target="_blank"
+    onclick="window.open(this.href,'targetWindow','toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=250'); 
+    return false">Share with Freind</a>
+</div>
+<div class="innerlinkTwo"> 
+    <a 
+     href="https://www.facebook.com/v16.0/plugins/like.php?action=like&app_id=&channel=https%3A%2F%2Fstaticxx.facebook.com%2Fx%2Fconnect%2Fxd_arbiter%2F%3Fversion%3D46%23cb%3Df384a9a671ec9dc%26domain%3Dlocalhost%26is_canvas%3Dfalse%26origin%3Dhttp%253A%252F%252Flocalhost%253A8000%252Ff29b92e91793fe%26relation%3Dparent.parent&container_width=115&href=https://www.facebook.com/profile.php?id=100089843555780&locale=en_GB&sdk=joey&share=false&size=large&width="
+     target="_blank"
+    onclick="window.open(this.href,'targetWindow','toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=250'); 
+    return false"><img src="{{ asset('frontend') }}/assets/images/9025974_thumbs_up_icon.png"></a>
+</div>
