@@ -1,0 +1,164 @@
+//website Open karne k liye Age Limit ka Modal with javascript
+
+
+<style>
+    .modal-backdrop {
+        z-index: 99999999999 !important;
+        overflow: auto !important;
+        background-color: #000 !important;
+        position: fixed;
+    }
+
+    .modal-backdrop  p{
+    font-size: 17px;
+    }
+</style>
+  Or
+<style>
+    .modal {
+       display: block;
+       position: fixed;
+       z-index: 1;
+       left: 0;
+       top: 0;
+       width: 100%;
+       height: 100%;
+       /* overflow: auto; */
+       background-color: #fefefe;
+   }
+   
+   .modal-content {
+       background-color: #fefefe;
+       margin: 15% auto;
+       padding: 20px;
+       border: 1px solid #888;
+       width: 80%;
+   }
+   
+   .modal-content p {
+       margin: 0 0 20px;
+   }
+   
+   .modal-content button {
+       margin-right: 10px;
+   }
+   
+</style>
+
+   
+
+<div id="myModalWeb" class="modal">
+    <div class="modal-content">
+      <p>Ap kya is website ko dekhna chahte hain?</p>
+      <button id="yesBtn">Haan</button>
+      <button id="noBtn">Nahi</button>
+    </div>
+</div>
+
+// Bootstrap Modal
+
+
+
+<div class="modal modal-backdrop" id="myModalWeb" data-backdrop="static" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Verify</h5>
+        </div>
+        <div class="modal-body">
+            <p>
+                Are you over the age of 21 ?
+            </p>
+        </div>
+        <div class="modal-footer">
+            <button type="button"  id="yesBtn" class="btn btn-primary">YES</button>
+            <button type="button"  id="noBtn" class="btn btn-secondary" data-dismiss="modal">No</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+// javascript
+<script>
+
+    $(document).ready(function() {
+
+        // Get the modal
+        var modal = document.getElementById("myModalWeb");
+
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // Get the Yes and No buttons
+        var yesBtn = document.getElementById("yesBtn");
+        var noBtn = document.getElementById("noBtn");
+
+        // Get the last visit time from localStorage
+        var lastVisitTime = localStorage.getItem('lastVisitTime');
+
+        // If lastVisitTime is not set or more than 24 hours, then show modal
+        if (!lastVisitTime || (new Date() - new Date(lastVisitTime)) > 24 * 60 * 60 * 1000) {
+        modal.style.display = "block";
+        }
+
+        // When the user clicks on Yes button, hide the modal and set lastVisitTime in localStorage
+        yesBtn.onclick = function() {
+        modal.style.display = "none";
+        localStorage.setItem('lastVisitTime', new Date());
+        }
+
+        // When the user clicks on No button, show the modal again
+        noBtn.onclick = function() {
+        modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), hide the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, hide it
+        window.onclick = function(event) {
+        if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    });
+
+</script>
+
+// Jquery
+
+<script>
+
+    $(document).ready(function() {
+            // Get the modal
+            var modal = document.getElementById("myModalWeb");
+            // Get the Yes and No buttons
+            var yesBtn = document.getElementById("yesBtn");
+            var noBtn = document.getElementById("noBtn");
+
+            // Get the last visit time from localStorage
+            var lastVisitTime = localStorage.getItem('lastVisitTime');
+
+            // If lastVisitTime is not set or more than 24 hours, then show modal
+            if (!lastVisitTime || (new Date() - new Date(lastVisitTime)) > 24 * 60 * 60 * 1000) {
+            modal.style.display = "block";
+            }
+
+            // When the user clicks on Yes button, hide the modal and set lastVisitTime in localStorage
+            yesBtn.addEventListener('click', function() {
+            modal.style.display = "none";
+            localStorage.setItem('lastVisitTime', new Date());
+            });
+
+            // When the user clicks on No button, show the modal again
+            noBtn.addEventListener('click', function() {
+            modal.style.display = "block";
+            });
+    });
+
+</script>
+
