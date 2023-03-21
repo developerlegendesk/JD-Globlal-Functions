@@ -1,0 +1,116 @@
+
+public function fetchCity(Request $request)
+{
+    // dd($request->all());
+    $data['cities'] = City::where("state_id",$request->state_id)->orderBy('name')->get(["name", "id"]);
+    
+    return response()->json($data);
+}
+
+
+Route::post('api/fetch-cities', [CommonController::class, 'fetchCity']);
+
+
+
+
+
+<div class="col-sm-12 col-md-6">
+    <div class="input-field inputDropdown">
+        <select  id="state-dd" name="address_state" class="validate" field_type="input">
+            <option hidden value="">Select State</option>
+            @foreach ($states as $data)
+            {{-- @dd($data->id); --}}
+            <option value="{{$data->id}}" {{ auth()->user()->state == $data->id ? 'selected' :
+                ''
+                }}>
+                {{$data->name}}
+            </option>
+            @endforeach
+        </select>
+    </div>
+</div>
+<div class="col-sm-12 col-md-6">
+    <div class="input-field inputDropdown">
+        <label for="city">City</label>
+        <select id="city-dd" name="address_city" class="validate" field_type="input">
+            <option hidden value="">Select City</option>
+        </select>
+    </div>
+</div>
+
+
+$('#state-dd').on('change', function () {
+	var idState = this.value;
+	$("#city-dd").html('');
+	$.ajax({
+		url: "{{url('api/fetch-cities')}}",
+		type: "POST",
+		data: {
+			state_id: idState,
+			_token: '{{csrf_token()}}'
+		},
+		dataType: 'json',
+		success: function (res) {
+			// alert(res.length);
+			// $('#city-dd').html('<option value="">Select City</option>');
+			$.each(res.cities, function (key, value) {
+				$("#city-dd").append('<option value="' + value
+					.id + '"{{ auth()->user()->city == ' + value.id + ' ? "selected" : ""}}>' + value.name + '</option>');
+			});
+		}
+	});
+});
+
+
+
+// For Edit 
+
+    var idcountry = $('#country-dd').val();
+            var state_id =  {{$tax->state_id}};
+            // alert(state_id);
+            $.ajax({
+                    url: "{{route('fetch_states')}}",
+                    type: "POST",
+                    data: {
+                        idcountry: idcountry,
+                        _token: '{{csrf_token()}}'
+                    },
+                    dataType: 'json',
+                    success: function (res) {
+                        $.each(res.states, function (key, value) {
+                            var selected = (state_id == value.id) ? "selected" : "";
+                            $("#state-dd").append('<option value="' + value.id + '" ' + selected + '>' + value.name + '</option>');
+                        });
+
+                    }
+                });
+
+
+
+
+
+//global ajax call function
+    function AjaxRequest(url,data)
+    {
+        var res;
+        $.ajax({
+            url: url,
+            data: data,
+            async: false,
+            error: function() {
+            console.log('error');
+            },
+            dataType: 'json',
+            success: function(data) {
+            res= data;
+
+            },
+            type: 'POST'
+            });
+
+        return res;
+    }
+
+
+
+
