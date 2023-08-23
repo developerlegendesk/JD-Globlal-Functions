@@ -7,7 +7,7 @@ Route::post('/send-mail', [FrontendPageController::class, 'addsubscriber'])->nam
 
 
 <!-- Html Form Submit Via AJax -->
-<form action="{{route('newsletter_mailchimp')}}" method="post">
+<form id="mailchimpForm" action="{{route('newsletter_mailchimp')}}" method="post">
     @csrf
     <div class="newsletterInput">
         <input type="email" name="email" class="email-news" placeholder="Enter valid email ID">
@@ -21,7 +21,7 @@ Route::post('/send-mail', [FrontendPageController::class, 'addsubscriber'])->nam
 
 <script>
 	$(document).ready(function() {
-		$('form').submit(function(e) {
+		$('mailchimpForm').submit(function(e) {
 		  e.preventDefault(); 
 
 		  var email = $('.email-news').val();
