@@ -1,0 +1,30 @@
+
+	-----------------------HTML
+
+		<div class="col-12">
+           <label for="">Fav-Icon</label>
+			 <div  class="imgSize">  <img id="blah" src="{{asset($setting->log_fav_icon)}}"/></div>
+			 <input type="file" name="log_fav_icon" class="form-control"  placeholder="Fav Icon" alt="Fav Icon" value="{{ $setting ? asset($setting->log_fav_icon) : '' }}"  id="imgInp">
+		</div>
+	 
+	 --------------------JQUERY
+
+		$(document).ready(function(){
+			imgInp.onchange = evt => {
+			const [file] = imgInp.files
+				if (file) {
+					blah.src = URL.createObjectURL(file)
+				}else{
+					blah.src = '{{ $setting ? asset($setting->log_fav_icon): '' }}'
+				}
+			}
+		});
+
+	 ----------------------CONTROLLER 
+
+		if($request->hasFile('log_fav_icon')){
+			$attechment = $request->file('log_fav_icon');
+			$img_2 = time() . $attechment->getClientOriginalName();
+			$attechment->move(public_path('assets/images/settings'), $img_2);
+			$setting->log_fav_icon = 'assets/images/settings/' .$img_2;
+		}

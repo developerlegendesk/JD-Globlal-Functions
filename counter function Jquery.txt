@@ -1,0 +1,40 @@
+counter function Jquery
+
+
+<section class="prog">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="plus1"><span class="count">200</span>+</div>
+                <h3>Projects Delivered</h3>
+            </div>
+            <div class="col-sm-3">
+                <div class="plus1"><span class="count">120</span>+</div>
+                <h3>Clients Served</h3>
+            </div>
+            <div class="col-sm-3">
+                <div class="plus1"><span class="count">100</span>%</div>
+                <h3>Completion Rate</h3>
+            </div>
+            <div class="col-sm-3">
+                <div class="plus1"><span class="count">6</span>+</div>
+                <h3>Industries Covered</h3>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+Jquery
+
+$('.count').each(function () {
+    $(this).prop('Counter',0).animate({
+        Counter: $(this).text()
+    }, {
+        duration: 4000,
+        easing: 'swing',
+        step: function (now) {
+            $(this).text(Math.ceil(now));
+        }
+    });
+});
