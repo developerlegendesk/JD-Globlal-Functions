@@ -1,0 +1,240 @@
+<!-- New Header -->
+<header class="customHeader">
+    <div class="topbarMain">
+        <div class="container">
+            <div class="row">
+                <div class="topBar">
+                    <div class="col-md-6">
+                        <div class="topRIght">
+                            <div class="innerlinkFirst">
+                                <!-- <a href="#" title="Site Map"><img src="{{ asset('frontend') }}/assets/images/line.png"></a> -->
+                                <a href="#popup-modal" data-toggle="modal"><img
+                                        src="{{ asset('frontend') }}/assets/images/line.png"> Share with Freind</a>
+
+                                {{-- <a  href="https://www.facebook.com/sharer/sharer.php?kid_directed_site=0&sdk=joey&u=https://www.drugotc.geeksroot.net%2F&display=popup&ref=plugin&src=share_button"
+                             target="_blank"
+                            onclick="window.open(this.href,'targetWindow','toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=250');
+                            return false">Share with Freind</a> --}}
+                            </div>
+                            <div class="innerlinkTwo">
+                                <a href="https://www.facebook.com/v16.0/plugins/like.php?action=like&app_id=&channel=https%3A%2F%2Fstaticxx.facebook.com%2Fx%2Fconnect%2Fxd_arbiter%2F%3Fversion%3D46%23cb%3Df384a9a671ec9dc%26domain%3Dlocalhost%26is_canvas%3Dfalse%26origin%3Dhttp%253A%252F%252Flocalhost%253A8000%252Ff29b92e91793fe%26relation%3Dparent.parent&container_width=115&href=https://www.facebook.com/profile.php?id=100089843555780&locale=en_GB&sdk=joey&share=false&size=large&width="
+                                    target="_blank" onclick="window.open(this.href,'targetWindow','toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=250');
+                            return false"><img
+                                        src="{{ asset('frontend') }}/assets/images/9025974_thumbs_up_icon.png"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="topLeft">
+                            <div class="langauge">
+                                <label>Language </label>
+                                <div id="google_translate_element" style="display:none"></div>
+
+                                <a id="en" class="language_option active" onclick="changeLanguageByButtonClick('en')"
+                                    translate="no" href="javascript:void(0)">English</a>
+                                <a id="es" class="language_option" onclick="changeLanguageByButtonClick('es')"
+                                    translate="no" href="javascript:void(0)">Español</a>
+                                <a id="zh-CN" class="language_option" onclick="changeLanguageByButtonClick('zh-CN')"
+                                    translate="no" href="javascript:void(0)">中文</a>
+
+                            </div>
+                            <div class="currency">
+                                <label>Currency</label>
+                                <a href="#">USD</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="middlebarMain">
+        <div class="container">
+            <div class="row">
+                <div class="middlebar">
+                    <div class="col-md-3">
+                        <div class="headerLogo">
+                            <a href="{{ route('home') }}"><img
+                                    src="{{config_manage() !== null ? config_manage()->logo : '' }}" alt="logo"></a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <form action="{{route('search_products')}}" method="get">
+                            <div class="searchInput">
+                                <input class="search-field" name='search'
+                                    value="{{old('search') ? old('search')  : '' }}" placeholder="Search Products" />
+                                <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="contactIcon">
+                            <div class="userIcon">
+                                @if (auth()->user())
+                                <div class="userdropdown">
+                                    <button class="dropbtn">{{ucfirst(auth()->user()->name)}} <img
+                                            src="{{ asset('frontend') }}/assets/images/user_icon.png"></button>
+                                    <div class="dropdown-content">
+                                        <a href="{{ route('dashboard') }}">Dashboard</a>
+                                        <a href="{{ route('user.logout') }}">Log Out</a>
+                                    </div>
+                                </div>
+                                <!-- <a href="{{ route('dashboard') }}">{{ucfirst(auth()->user()->name)}}<img src="{{ asset('frontend') }}/assets/images/user_icon.png"></a> -->
+                                @else
+                                <a href="{{ route('register') }}">Register<img
+                                        src="{{ asset('frontend') }}/assets/images/user_icon.png"></a>
+                                <a href="{{ route('login') }}">Login<img
+                                        src="{{ asset('frontend') }}/assets/images/user_icon.png"></a>
+
+                                @endif
+                            </div>
+                            <div class="heartIcon">
+                                @if(auth()->check())
+                                <div class="basket-item-count"><span class="count" id="wishlistQty"></span></div>
+                                @endif
+                                <a href="{{ route('listWishlist') }}"><img
+                                        src="{{ asset('frontend') }}/assets/images/9041831_heart_icon.png"></a>
+                            </div>
+                            <div class="cartIcon">
+                                <div class="basket-item-count fortopset"><span class="count" id="cartQty"></span></div>
+                                <a href="{{ route('myCartView') }}"><img
+                                        src="{{ asset('frontend') }}/assets/images/9041728_cart_icon.png"></a>
+                                <span class="total-price">
+                                    <span class="sign">$</span>
+                                    <span class="value" id="cartSubTotal"></span>
+                                </span>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="menubarMain">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="menuBar">
+                        <nav class="navbar navbar-expand-md navbar-light">
+                            <div class="container">
+                                <!-- <a class="navbar-brand" href="{{ route('home') }}">
+                                    <img src="{{config_manage() !== null ? config_manage()->logo : '' }}" alt="logo">
+                                </a> -->
+                                <!-- <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                    data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                                    aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button> -->
+                                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                    data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                                    aria-label="Toggle navigation" onclick="toggleMenu()">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
+                                <div class="collapse navbar-collapse fordesktopnav" id="navbarNav">
+                                    <ul class="navbar-nav">
+                                        @foreach ( $main_categories as $key => $value)
+                                        @php
+                                        $heading = '';
+                                        if (strpos($value->category_name_en, ' ') !== false) {
+                                        $heading = explode(' ', $value->category_name_en);
+                                        } else {
+                                        $heading = $value->category_name_en;
+                                        }
+
+                                        @endphp
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle"
+                                                href="{{route('product_listing_parent_cat',[$value->category_slug_en])}}">
+
+                                                @if(is_array($heading) && count($heading) > 1)
+                                                <label style="display: inline-block;">
+                                                    @foreach($heading as $head)
+                                                    @if($loop->last)
+                                                    </br>
+                                                    <span>{{ $head }}</span>
+                                                    @else
+                                                    {{ $head }}
+                                                    @endif
+                                                    @endforeach
+                                                </label>
+                                                @else
+                                                <label style="display: inline-block;">{{ $heading }}</label>
+                                                @endif
+                                            </a>
+                                            @if(count(subcategory($value->id)) > 0)
+                                            <ul class="dropdown-menu">
+                                                @foreach( subcategory($value->id) as $item)
+                                                <li><a class="dropdown-item"
+                                                        href="{{route('product_listing_parent_cat',[$value->category_slug_en .'/'. $item->category_slug_en])}}">{{$item->category_name_en}}</a>
+                                                </li>
+                                                @endforeach
+                                            </ul>
+                                            @endif
+                                        </li>
+                                        @endforeach
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link" href="{{route('sales_special_products')}}">
+                                                <label>Sales</label>
+                                                <span>& specials</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link" href="{{ route('health.topics', ['all']) }}">
+                                                <label>Health</label>
+                                                <span>topics</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</header>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+        pageLanguage: "en"
+    }, 'google_translate_element');
+}
+
+function changeLanguageByButtonClick(lang) {
+    var selectField = document.querySelector("#google_translate_element select");
+    for (var i = 0; i < selectField.children.length; i++) {
+        var option = selectField.children[i];
+        if (option.value == lang) {
+            selectField.selectedIndex = i;
+            selectField.dispatchEvent(new Event('change'));
+            $(".language_option").removeClass('active');
+            $('#' + lang).addClass('active');
+        }
+    }
+}
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+</script>
+
+<style>
+.modal-body {
+    position: relative;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1rem;
+    display: table;
+    margin: 0px auto;
+}
+
+/* Center the modal vertically */
+.modal-dialog-centered {
+    display: flex;
+    align-items: center;
+    min-height: calc(100% - 1rem);
