@@ -1,0 +1,34 @@
+PreLoader Window Load
+
+ HTML FILE:
+
+<div id="preloaders" class="preloader"></div>
+
+Step 2 : Create new css file inside yourproject/public/css/custom.css(anything)
+
+CSS File :
+
+.preloader 
+{
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url('../images/timer.gif') 50% 50% no-repeat rgb(249,249,249);
+    opacity: .8;
+}
+      Download Gif image what ever you like and add it in your project folder ../public/images/loader.gif
+
+
+Step 3 : Create new js file inside yourproject/public/js/custom.css(anything)
+
+JAVASCRIPT:
+
+$(window).load(function() 
+{          
+                 $("#preloaders").fadeOut(2000);
+   });
+
+Simple...... Now your preloader will work :) :)  
