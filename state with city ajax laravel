@@ -1,0 +1,78 @@
+------------blade.php  
+<select class="js-data-example-ajax"></select>
+
+---------- js---------------
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <<script>
+        $('.js-data-example-ajax').select2({
+            ajax: {
+                url: "{{ route(auth()->user()->type . '.state_city') }}", // POST route
+                type: 'POST',
+                dataType: 'json',
+                delay: 250,
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}' // CSRF token for security
+                },
+                data: function (params) {
+                    return {
+                        q: params.term // Send the search term
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: data.items // Use the data returned from the backend
+                    };
+                },
+                cache: true
+            },
+            placeholder: 'Search for a state or city',
+            minimumInputLength: 1
+        });
+    </script>
+---------- web.php ---------------
+Route::post('/combo/state-city', [PostAShipmentController::class, 'state_city'])->name('combo.state_city');
+
+---------Controller--------------------------
+public function state_city(Request $request)
+    {
+        // Get the search query
+        $query = $request->q;
+
+        // Fetching states and cities using Eloquent `get()`
+        $states = State::where('name', 'LIKE', '%' . $query . '%')->take(5)->get(); // Collection of states
+        $cities = City::where('name', 'LIKE', '%' . $query . '%')->take(5)->get(); // Collection of cities
+
+        // Merging both collections into one collection
+
+        $states = $states->map(function($state) {
+            return [
+                'id' => 'state_' . $state->id, // Prefixing to distinguish between state and city
+                'text' =>  $state->name  .', ' .$state->country_code
+            ];
+        });
+
+        $cities = $cities->map(function($city) {
+            return [
+                'id' => 'city_' . $city->id, // Prefixing to distinguish between state and city
+                'text' =>  $city->name . ', '.$city->state_name.', '. $city->states->country_code
+            ];
+        });
+
+        if(count($states) > 0){
+            $results = $states->toArray();
+        }
+        if(count($cities) > 0){
+            $results = $cities->toArray();
+        }
+        if(count($cities) > 0 && count($states) > 0){
+            $results = array_merge($states->toArray(), $cities->toArray());
+        }
+        // Return the results as a JSON response
+        return response()->json([
+            'items' => $results // Ensure this is a collection, not an array
+        ]);
+    }
+
+
+
